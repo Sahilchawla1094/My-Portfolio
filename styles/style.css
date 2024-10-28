@@ -1,0 +1,287 @@
+/* Importing a clean sans-serif font */
+@import url('https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&display=swap');
+
+/* General Styling */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #FFFFFF; /* White background for the entire app */
+    color: #333333; /* Dark gray text for better readability */
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth; /* Enables smooth scrolling */
+}
+
+/* Container Styling */
+.container {
+    max-width: 1200px; /* Restricts the maximum width for better readability */
+    margin: 0 auto; /* Centers the container */
+    padding: 0 20px; /* Adds horizontal padding */
+}
+
+/* Header Styling */
+h1, h2, h3 {
+    font-weight: 700;
+    color: #000000; /* Black headers for emphasis */
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 36px;
+    margin-top: 20px;
+}
+
+h2 {
+    font-size: 28px;
+    margin-top: 40px;
+}
+
+h3 {
+    font-size: 22px;
+    margin-top: 30px;
+}
+
+/* Paragraph Styling */
+p {
+    font-weight: 400;
+    color: #666666; /* Medium gray for body text */
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Link Styling */
+a {
+    color: #0071e3; /* Apple-like blue for links */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #005bb5; /* Darker blue on hover */
+    text-decoration: underline;
+}
+
+/* Button Styling */
+.btn_color {
+    background-color: #0071e3; /* Blue background */
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 25px; /* Rounded buttons */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn_color:hover {
+    background-color: #005bb5; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight upward movement on hover */
+}
+
+/* Platform Card Styling */
+.platform-card {
+    border: 1px solid #e0e0e0; /* Light gray border */
+    border-radius: 10px;
+    padding: 20px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    text-align: center;
+    background-color: #f9f9f9; /* Slightly off-white background for contrast */
+    margin-bottom: 20px; /* Space between cards */
+}
+
+.platform-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+    transform: translateY(-5px); /* Slight upward movement on hover */
+}
+
+/* Contact Icon Styling */
+.contact-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+}
+
+/* Info Item Styling */
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Side Navigation Bar Styling */
+.navbar {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background-color: transparent; /* Transparent background */
+    z-index: 1000; /* Ensures navbar is on top */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Spacing between buttons */
+}
+
+.navbar li {
+    /* No additional styling needed for list items */
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #333333;
+    font-weight: 700;
+    font-size: 16px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    padding: 10px 15px;
+    border-radius: 50%; /* Makes the background circular */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar a:hover {
+    color: #FFFFFF; /* White text on hover */
+    background-color: #0071e3; /* Blue background on hover */
+    transform: scale(1.1); /* Slightly larger on hover */
+}
+
+/* Download CV Button Styling within Side Navbar */
+.navbar .download-cv {
+    background-color: #28a745; /* Green background */
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px; /* Rounded button */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: auto;
+}
+
+.navbar .download-cv:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly larger on hover */
+}
+
+/* Adjust body padding to prevent content overlap with navbar */
+body {
+    padding-right: 80px; /* Space for the side navbar */
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px 0;
+    border-top: 1px solid #e0e0e0; /* Light gray top border */
+    background-color: #FFFFFF; /* White background for footer */
+}
+
+footer p {
+    font-size: 14px;
+    color: #666666;
+}
+
+footer div {
+    margin-top: 10px;
+}
+
+footer a img {
+    margin: 0 15px;
+    transition: transform 0.3s ease;
+    width: 30px;
+    height: 30px;
+}
+
+footer a img:hover {
+    transform: scale(1.2);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    h1 {
+        font-size: 32px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    .navbar ul {
+        gap: 15px; /* Reduced spacing on smaller screens */
+    }
+
+    body {
+        padding-right: 60px; /* Reduced padding for smaller screens */
+    }
+
+    .platform-card {
+        padding: 15px;
+    }
+
+    .contact-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+
+    .btn_color {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    .navbar {
+        flex-direction: row;
+        top: auto;
+        bottom: 0;
+        right: 50%;
+        transform: translateX(50%);
+    }
+
+    .navbar ul {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .navbar a {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    body {
+        padding-right: 0; /* Remove padding on very small screens */
+        padding-bottom: 60px; /* Space for bottom navbar */
+    }
+
+    footer a img {
+        width: 25px;
+        height: 25px;
+    }
+}

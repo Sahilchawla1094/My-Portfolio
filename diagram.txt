@@ -1,0 +1,17 @@
+my_portfolio/
+├── app.py
+├── assets/
+│   ├── cv/
+│   │   └── Sahil_Chawla_CV.pdf
+│   ├── projects/
+│   │   ├── project1.jpg
+│   │   ├── project2.jpg
+│   │   └── ... etc.
+│   └── icons/
+│       ├── phone.png
+│       ├── email.png
+│       ├── address.png
+│       └── ... etc.
+├── styles/
+│   └── style.css
+├── requirements.txt

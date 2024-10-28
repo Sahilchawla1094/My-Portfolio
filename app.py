@@ -93,7 +93,7 @@ def show_profile():
             st.markdown("<h3>Data Scientist</h3>", unsafe_allow_html=True)
             st.markdown(
                 """
-                <p>With over 3.5 years of professional experience, I specialize in Data Analysis and Data Engineering within the Ed-tech and Supply Chain domains. My enthusiasm for Generative AI and Cloud technologies drives my passion to automate processes and simplify complex tasks, ensuring efficiency and innovation in every project I undertake.</p>
+                <p>With over 3.5 years of professional experience, I specialize in Data Science within the Ed-tech and Supply Chain domains. My enthusiasm for Generative AI and Cloud technologies drives my passion to automate processes and simplify complex tasks, ensuring efficiency and innovation in every project I undertake.</p>
                 <div style='text-align: left; margin-top: 20px; display: flex; gap: 15px;'>
                     <a href="#contact">
                         <button class="btn_color">Contact Info</button>
@@ -158,11 +158,6 @@ def show_education():
             'institution': 'St. Anselms Sr. Sec. School',
             'duration': '2009 - 2010',
             'percentage': '8.6 CGPA',
-        },
-        {
-            'degree': 'EY Artificial Intelligence - AI Engineering',
-            'institution': 'Bronze Learning',
-            'duration': '2024',
         }
     ]
     
@@ -188,11 +183,24 @@ def show_experience():
     
     experience = [
         {
+            'title': 'Associate Data Scientist - Intern',
+            'company': 'Great Learning, Gurugram',
+            'duration': 'Aug 2021 - Dec 2021',
+            'domain': 'Ed-tech',
+            'technologies': ['Python', 'SQL', 'Excel', 'Tableau', 'Microsoft Azure'],
+            'description': """
+            - Worked closely with students to help them learn and apply cutting-edge technologies in data science.
+            - Developed and taught courses on Microsoft Azure ML for creating new projects on Artificial Neural Networks (ANNs).
+            - Created learning content on IBM Watson Assistant to help students understand and create Conversational/Action-based chatbots.
+            - Managed the PGP-Data Engineering program, showcasing the ability to take ownership of complex programs.
+            """
+        },
+        {
             'title': 'Associate Data Scientist',
             'company': 'Great Learning, Gurugram',
-            'duration': 'Jan 2022 - Present',
+            'duration': 'Jan 2022 - Apr 2024',
             'domain': 'Ed-tech',
-            'technologies': ['Python', 'SQL', 'Excel', 'Tableau'],
+            'technologies': ['Python', 'SQL', 'Excel', 'Tableau', 'Machine Learning'],
             'description': """
             - Renowned for a strong track record in New Product Development (NPD), particularly in creating and spearheading Data Science courses.
             - Architect of significant programs such as Applications of Artificial Intelligence, PGP Data Science and Engineering, PGP Data Engineering, and the Great Learning Career Academy.
@@ -203,22 +211,9 @@ def show_experience():
             """
         },
         {
-            'title': 'Associate Data Scientist - Intern',
-            'company': 'Great Learning, Gurugram',
-            'duration': 'Aug 2021 - Dec 2021',
-            'domain': 'Ed-tech',
-            'technologies': ['Python', 'SQL', 'Excel', 'Tableau'],
-            'description': """
-            - Worked closely with students to help them learn and apply cutting-edge technologies in data science.
-            - Developed and taught courses on Microsoft Azure ML for creating new projects on Artificial Neural Networks (ANNs).
-            - Created learning content on IBM Watson Assistant to help students understand and create Conversational/Action-based chatbots.
-            - Managed the PGP-Data Engineering program, showcasing the ability to take ownership of complex programs.
-            """
-        },
-        {
-            'title': 'Staff/Assistant - Technology Consulting',
-            'company': 'BlueYonder, Supply Chain Domain',
-            'duration': 'Jan 2018 - Dec 2020',
+            'title': 'Technology Consultant - Data Scientist',
+            'company': 'Ernst & Young',
+            'duration': 'Apr 2024 - Present',
             'domain': 'Supply Chain',
             'technologies': ['Excel', 'SQL', 'PL/SQL', 'Python', 'Langchain'],
             'description': """
@@ -227,6 +222,7 @@ def show_experience():
             - Architected and implemented a custom Supply Chain Planning and Optimization (SCPO) Solver for BlueYonder's Transportation Management System using Oracle PL/SQL.
             - Created multi-condition loading processes and source shifting algorithms that increased truck utilization by 90% and reduced transportation costs by 50% for Ferrero Rocher.
             - Developed sophisticated truck loading optimization algorithms incorporating multiple constraints (stackability, weight limits, priority shipments), resulting in maximized asset utilization and improved operational efficiency.
+            - clientele: 'The Schwans company', 'Ferrero Rocher', 'Carnival Cruise Line', 'BlueYonder'.
             """
         }
     ]
@@ -352,7 +348,7 @@ def show_projects():
             'title': 'Annual Turnover Prediction for Restaurant',
             'description': 'Predict the Annual Turnover of a Restaurant based on provided variables. Utilized LGBM Regressor, CATBOOST Regressor, and Random Forest Regressor to achieve optimal RMSE.',
             'image': 'project1.jpg',
-            'link': 'https://github.com/Sahilchawla1094/Annual-Turnover-Prediction'
+            'link': 'https://github.com/Sahilchawla1094/Annual-Turnover-of-a-restaurant'
         },
         {
             'title': 'Home Credit Default Risk',
@@ -364,25 +360,25 @@ def show_projects():
             'title': 'Business Loan Application Default Prediction',
             'description': 'Determine if a new business loan application will default based on provided variables. Employed Logistic Regression, Decision Tree Classifier, and Random Forest Classifier to predict the best F1 score.',
             'image': 'project3.jpg',
-            'link': 'https://github.com/Sahilchawla1094/Business-Loan-Default-Prediction'
+            'link': 'https://github.com/Sahilchawla1094/Predicting-whether-a-business-loan-applicant-will-default-or-not'
         },
         {
             'title': 'Thera Bank Liability Prediction',
             'description': 'Predict the likelihood of a liability customer buying personal loans using Artificial Neural Networks (ANN) to achieve the best F1 score.',
             'image': 'project4.jpg',
-            'link': 'https://github.com/Sahilchawla1094/Thera-Bank-Liability-Prediction'
+            'link': 'https://github.com/Sahilchawla1094/Thera-Bank'
         },
         {
             'title': 'Water Portability Analysis',
             'description': 'Identify whether water is safe for drinking based on provided variables. Utilized Artificial Neural Networks (ANN) to achieve the best Accuracy score.',
             'image': 'project5.jpg',
-            'link': 'https://github.com/Sahilchawla1094/Water-Portability-Analysis'
+            'link': 'https://github.com/Sahilchawla1094/Water-Potability'
         },
         {
             'title': 'Counter-Strike: GO Round Winner Prediction',
             'description': 'Predict the match winner (terrorist or counter-terrorist) using variables from the dataset. Implemented Logistic Regression, Decision Tree Classifier, Random Forest Classifier, and XG Boost to achieve the best Accuracy score.',
             'image': 'project6.jpg',
-            'link': 'https://github.com/Sahilchawla1094/Counter-Strike-GO-Round-Winner-Prediction'
+            'link': 'https://github.com/Sahilchawla1094/Counter-Strike--GO-Round-winner'
         }
     ]
     

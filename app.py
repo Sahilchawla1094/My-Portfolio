@@ -15,6 +15,7 @@ def local_css(file_name):
         st.error(f"CSS file '{file_name}' not found at {css_path}.")
 
 # Function to encode images in Base64
+@st.cache_data
 def get_image_base64(image_path):
     try:
         with open(image_path, "rb") as img_file:
@@ -93,7 +94,7 @@ def show_profile():
             st.markdown("<h3>Data Scientist</h3>", unsafe_allow_html=True)
             st.markdown(
                 """
-                <p>With over 3.5 years of professional experience, I specialize in Data Science within the Ed-tech and Supply Chain domains. My enthusiasm for Generative AI and Cloud technologies drives my passion to automate processes and simplify complex tasks, ensuring efficiency and innovation in every project I undertake.</p>
+                <p>With over 4.5 years of professional experience, I specialize in Data Science and Machine Learning within the Supply Chain and Ed-tech domains. My enthusiasm for Generative AI drives my passion to build intelligent solutions, automate processes, and deliver measurable impact for global enterprise clients.</p>
                 <div style='text-align: left; margin-top: 20px; display: flex; gap: 15px;'>
                     <a href="#contact">
                         <button class="btn_color">Contact Info</button>
@@ -116,9 +117,9 @@ def show_about():
         st.markdown(
             """
             <div style='max-width: 800px; margin: auto; text-align: left;'>
-                <p>I am an accomplished Associate Data Scientist with over 3.5 years of experience, renowned for delivering impactful results in the Ed-tech and Supply Chain domains. My journey has been marked by a deep expertise in Data Analysis and Data Engineering, coupled with a relentless pursuit of innovation through Generative AI and Cloud technologies.</p>
-                <p>At Great Learning, I have spearheaded the development of numerous Data Science courses, including the prestigious Applications of Artificial Intelligence, PGP Data Science and Engineering, PGP Data Engineering, and the Great Learning Career Academy programs. My role involves comprehensive project management, strategic planning, and the creation of cutting-edge educational content that pushes the boundaries of traditional learning.</p>
-                <p>My passion lies in automating processes to make tasks easier and more efficient, leveraging tools like Python, SQL, Spark, and cloud platforms like Microsoft Azure. This enthusiasm drives me to continuously explore and integrate new technologies into my work, ensuring that I stay at the forefront of the Data Science field.</p>
+                <p>I am a Data Scientist with 4.5+ years of experience delivering Machine Learning and Generative AI solutions, currently working as a Technology Consultant at Ernst & Young (EY). I have supported global enterprise clients including PepsiCo, American Honda Motors, Carnival Cruise Lines, Ferrero Rocher, and The Schwan's Company, driving measurable improvements in cost efficiency, planning accuracy, and operational performance.</p>
+                <p>Previously at Great Learning, I designed and delivered data science, data engineering, and Generative AI courses across 15 concurrent batches, created programs for NUS (National University of Singapore) and the Great Learning Career Academy, generating INR 50 crore in revenue through the courses I designed and delivered.</p>
+                <p>My passion lies in building intelligent systems — from ML pipelines and supply chain optimization solvers to AI chatbots and synthetic data generators — leveraging Python, SQL, PySpark, LangChain, and cloud platforms like Microsoft Azure.</p>
             </div>
             """,
             unsafe_allow_html=True
@@ -183,46 +184,42 @@ def show_experience():
     
     experience = [
         {
-            'title': 'Associate Data Scientist - Intern',
+            'title': 'Associate Data Scientist Intern',
             'company': 'Great Learning, Gurugram',
-            'duration': 'Aug 2021 - Dec 2021',
+            'duration': 'Jan 2021 - Dec 2021',
             'domain': 'Ed-tech',
-            'technologies': ['Python', 'SQL', 'Excel', 'Tableau', 'Microsoft Azure'],
+            'technologies': ['Python', 'SQL', 'Excel', 'Microsoft Azure', 'IBM Watson'],
             'description': """
-            - Worked closely with students to help them learn and apply cutting-edge technologies in data science.
-            - Developed and taught courses on Microsoft Azure ML for creating new projects on Artificial Neural Networks (ANNs).
-            - Created learning content on IBM Watson Assistant to help students understand and create Conversational/Action-based chatbots.
-            - Managed the PGP-Data Engineering program, showcasing the ability to take ownership of complex programs.
+            - Designed and delivered hands-on AI and ML learning modules using Microsoft Azure ML.
+            - Built IBM Watson Assistant tutorials for conversational and action-based chatbots.
+            - Led live project support sessions and implemented real-world Azure Custom Vision projects including helmet and obstacle detection.
             """
         },
         {
-            'title': 'Associate Data Scientist',
+            'title': 'Associate Data Scientist - Faculty',
             'company': 'Great Learning, Gurugram',
             'duration': 'Jan 2022 - Apr 2024',
             'domain': 'Ed-tech',
-            'technologies': ['Python', 'SQL', 'Excel', 'Tableau', 'Machine Learning'],
+            'technologies': ['Python', 'SQL', 'Excel', 'Tableau', 'Machine Learning', 'Generative AI'],
             'description': """
-            - Renowned for a strong track record in New Product Development (NPD), particularly in creating and spearheading Data Science courses.
-            - Architect of significant programs such as Applications of Artificial Intelligence, PGP Data Science and Engineering, PGP Data Engineering, and the Great Learning Career Academy.
-            - Demonstrates exceptional ownership, strategic foresight, and a commitment to developing cutting-edge educational content that pushes the boundaries of traditional learning.
-            - Successfully orchestrated the operations of 25 running batches of the Great Learning Career Academy program, impacting over 7,000 student careers worldwide.
-            - Utilizes platforms such as Excel, Tableau, and programming in Python (with libraries like Matplotlib and Seaborn) for deep data analysis and decision-making.
-            - Developed an AI-code tutor providing real-time, contextual hints to users, leading to a 40% increase in user satisfaction and a 30% uplift in platform engagement metrics.
+            - Designed and delivered data analysis, data engineering, data science, and Generative AI courses across 15 concurrent batches.
+            - Created courses for NUS (National University of Singapore) and GLCA (Great Learning Career Academy), generating INR 50 crore in revenue.
+            - Developed an AI code tutor providing real-time contextual hints, leading to a 40% increase in user satisfaction and 30% uplift in platform engagement.
             """
         },
         {
             'title': 'Technology Consultant - Data Scientist',
-            'company': 'Ernst & Young',
+            'company': 'Ernst & Young (EY), Gurugram',
             'duration': 'Apr 2024 - Present',
             'domain': 'Supply Chain',
-            'technologies': ['Excel', 'SQL', 'PL/SQL', 'Python', 'Langchain'],
+            'technologies': ['Python', 'SQL', 'PL/SQL', 'PySpark', 'LangChain', 'Power BI', 'Microsoft Azure'],
             'description': """
-            - Leveraged predictive analytics to streamline inventory management, minimizing stockouts and improving supply chain accuracy by 18% for Schwan’s company.
-            - Developed an advanced Generative AI solution using Langchain to generate high-quality synthetic data, addressing data privacy and availability challenges.
-            - Architected and implemented a custom Supply Chain Planning and Optimization (SCPO) Solver for BlueYonder's Transportation Management System using Oracle PL/SQL.
-            - Created multi-condition loading processes and source shifting algorithms that increased truck utilization by 90% and reduced transportation costs by 50% for Ferrero Rocher.
-            - Developed sophisticated truck loading optimization algorithms incorporating multiple constraints (stackability, weight limits, priority shipments), resulting in maximized asset utilization and improved operational efficiency.
-            - clientele: 'The Schwans company', 'Ferrero Rocher', 'Carnival Cruise Line', 'BlueYonder'.
+            - Worked as a Data Product Manager for PepsiCo, acting as SPOC and SME for data products; owned GDO and DFS/DRD documentation, led end-to-end delivery across build, UT, FT, SIT, and hypercare.
+            - Worked as an MLOps engineer for The Schwan's Company, deploying ML pipelines for inventory planning and improving supply chain accuracy by 18%.
+            - Worked as a PL/SQL developer for Ferrero Rocher, building a supply chain optimization solver for BlueYonder TMS that improved truck utilization by 90% and reduced transportation costs by 50%.
+            - Worked as an MLOps engineer for American Honda Motors, productionizing ML workflows and delivering Power BI dashboards that identified a $50M data gap across enterprise systems.
+            - Worked as a Python developer for Carnival Cruise Lines, building automation to streamline SQL transformation workflows and reduce manual execution effort.
+            - Built internal EY AI assets including a Generative AI tool using LangChain and Streamlit for synthetic data generation, and ERNY 2.0, an internal AI chatbot built with LangChain and a React UI.
             """
         }
     ]
@@ -231,7 +228,7 @@ def show_experience():
         for exp in experience:
             technologies_used = ", ".join(exp['technologies'])
             # Split the description into list items
-            description_items = [item.strip() for item in exp['description'].split('\n') if item.strip()]
+            description_items = [item.strip().lstrip('- ') for item in exp['description'].split('\n') if item.strip()]
             exp_content = f"""
             <div style='margin-bottom: 1.5rem;'>
                 <h3>{exp['title']} - <em>{exp['company']}</em></h3>
@@ -256,23 +253,23 @@ def show_skills():
     technical_skills = {
         'Python': 90,
         'SQL': 85,
-        'Spark': 70,
+        'PySpark': 75,
         'Data Analysis': 90,
         'Data Engineering': 80,
-        'Machine Learning': 80,
+        'Machine Learning': 85,
         'Deep Learning': 75,
         'Statistics': 80,
-        'Tableau': 70,
-        'Power BI': 70,
-        'Looker Studio': 60,
-        'Microsoft Azure': 70,
-        'Excel': 90,
+        'Generative AI': 75,
+        'LLMs & LangChain': 70,
         'NLP': 70,
-        'IBM Watson': 60,
-        'Langchain': 50,
+        'Tableau': 70,
+        'Power BI': 75,
+        'Microsoft Azure': 70,
+        'Databricks': 65,
+        'Snowflake': 65,
         'PL/SQL': 65,
-        'Predictive Analytics': 80,
-        'Generative AI': 60
+        'Excel': 90,
+        'Streamlit': 80
     }
     
     # Languages
@@ -462,7 +459,7 @@ def show_contact():
                 email = st.text_input("Email", placeholder="Enter your email")
             with col2:
                 phone = st.text_input("Phone", placeholder="+919799558521")
-                address = st.text_input("Address", placeholder="A45 HKM Nagar, Alwar (Raj)")
+                address = st.text_input("Address", placeholder="A45 B HKM Nagar, Alwar (Raj)")
             message = st.text_area("Message", placeholder="Your message...")
             submit = st.form_submit_button("Send Message")
         
@@ -488,11 +485,11 @@ def show_contact():
                         }
                     }
                     
-                    response = requests.post("https://api.emailjs.com/api/v1.0/email/send", json=data)
+                    response = requests.post("https://api.emailjs.com/api/v1.0/email/send", json=data, timeout=10)
                     
                     if response.status_code == 200:
                         st.success("Message sent successfully!")
-                        st.experimental_rerun()
+                        st.rerun()
                     else:
                         st.error("Failed to send message. Please try again.")
                 except Exception as e:
@@ -526,7 +523,7 @@ def show_contact():
                 'icon': 'address.png',
                 'alt': 'Address Icon',
                 'label': 'Address',
-                'value': 'A45 HKM Nagar, Alwar (Raj)'
+                'value': 'A45 B HKM Nagar, Alwar (Raj)'
             }
         ]
         
@@ -546,18 +543,18 @@ def show_contact():
 # Download CV Section
 def download_cv():
     st.markdown("<div id='download-cv'></div>", unsafe_allow_html=True)
-    cv_path = get_image_path("cv", "Sahil_Chawla_CV.pdf")
+    cv_path = get_image_path("cv", "Resume___Sahil_Chawla.pdf")
     try:
         with open(cv_path, "rb") as file:
             st.download_button(
                 label="Download CV",
                 data=file,
-                file_name="Sahil_Chawla_CV.pdf",
+                file_name="Resume___Sahil_Chawla.pdf",
                 mime="application/pdf",
                 key="download_cv_button"
             )
     except FileNotFoundError:
-        st.warning("CV file not found. Please ensure 'Sahil_Chawla_CV.pdf' is placed in the 'assets/cv/' directory.")
+        st.warning("CV file not found. Please ensure 'Resume___Sahil_Chawla.pdf' is placed in the 'assets/cv/' directory.")
 
 # Footer Section with Base64 Images
 def show_footer():
@@ -592,10 +589,8 @@ def main():
     show_projects()
     show_other_platforms()
     show_contact()
-    show_footer()
-    
-    # Add the Download CV button within a dedicated section
     download_cv()
+    show_footer()
 
 if __name__ == "__main__":
     main()

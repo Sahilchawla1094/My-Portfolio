@@ -1,596 +1,495 @@
 import streamlit as st
 from datetime import datetime
-import plotly.graph_objects as go
-import requests
 import base64
 from pathlib import Path
+import requests
 
-# Function to load local CSS
+# ── helpers ──────────────────────────────────────────────────────────────────
+
 def local_css(file_name):
-    css_path = Path(__file__).parent / file_name
-    try:
-        with open(css_path) as f:
-            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-    except FileNotFoundError:
-        st.error(f"CSS file '{file_name}' not found at {css_path}.")
+css_path = Path(**file**).parent / file_name
+try:
+with open(css_path) as f:
+st.markdown(f”<style>{f.read()}</style>”, unsafe_allow_html=True)
+except FileNotFoundError:
+pass
 
-# Function to encode images in Base64
 @st.cache_data
 def get_image_base64(image_path):
-    try:
-        with open(image_path, "rb") as img_file:
-            encoded = base64.b64encode(img_file.read()).decode()
-            return encoded
-    except FileNotFoundError:
-        st.warning(f"Image not found at path: {image_path}")
-        # Return a transparent pixel if image is not found
-        return "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII="
+try:
+with open(image_path, “rb”) as img_file:
+return base64.b64encode(img_file.read()).decode()
+except FileNotFoundError:
+return “iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==”
 
-# Helper function to get image paths with forward slashes
 def get_image_path(*args):
-    return (Path(__file__).parent / "assets" / Path(*args)).as_posix()
+return (Path(**file**).parent / “assets” / Path(*args)).as_posix()
 
-# Set page configuration
-st.set_page_config(page_title="Sahil Chawla | Data Scientist", layout="wide")
+# ── page config ───────────────────────────────────────────────────────────────
 
-# Hide Streamlit default footer
-hide_st_style = """
-            <style>
-            footer {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_st_style, unsafe_allow_html=True)
+st.set_page_config(page_title=“Sahil Chawla | Data Scientist”, layout=“wide”, page_icon=“⚡”)
 
-# Inject custom CSS
-local_css("styles/style.css")
+st.markdown(”””
 
-# Inject meta description for SEO
-st.markdown(
-    """
-    <meta name="description" content="Sahil Chawla's professional Data Scientist portfolio showcasing projects, skills, and contact information.">
-    """,
-    unsafe_allow_html=True
-)
+<style>
+  footer { visibility: hidden; }
+  #MainMenu { visibility: hidden; }
+  header { visibility: hidden; }
+  .block-container { padding: 0 !important; max-width: 100% !important; }
+  section[data-testid="stSidebar"] { display: none; }
+</style>
 
-# Side Navigation Bar (Implemented as fixed right-hand side)
-navbar = """
-<nav class="navbar">
-    <ul>
-        <li><a href="#profile" title="Profile">🏠</a></li>
-        <li><a href="#about" title="About">👨‍💼</a></li>
-        <li><a href="#education" title="Education">🎓</a></li>
-        <li><a href="#experience" title="Experience">💼</a></li>
-        <li><a href="#skills" title="Skills">🛠️</a></li>
-        <li><a href="#projects" title="Projects">📂</a></li>
-        <li><a href="#other-platforms" title="Platforms">🔗</a></li>
-        <li><a href="#contact" title="Contact">📞</a></li>
-        <li><a href="#download-cv" class="download-cv" title="Download CV">📄</a></li>
-    </ul>
+“””, unsafe_allow_html=True)
+
+local_css(“styles/style.css”)
+
+# ── Google Fonts & base styles ─────────────────────────────────────────────
+
+st.markdown(”””
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+""", unsafe_allow_html=True)
+
+# ── navbar ────────────────────────────────────────────────────────────────────
+
+st.markdown(”””
+
+<nav class="top-nav">
+  <div class="nav-logo">SC</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#download-cv" class="nav-cta">Resume ↗</a>
 </nav>
+""", unsafe_allow_html=True)
+
+# ── hero ──────────────────────────────────────────────────────────────────────
+
+profile_b64 = get_image_base64(get_image_path(“profile.jpg”))
+
+st.markdown(f”””
+
+<section id="profile" class="hero-section">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="hero-eyebrow">portfolio · 2026</span>
+      <h1 class="hero-title">I turn messy<br>data into<br><em>decisions.</em></h1>
+      <p class="hero-sub">Data Scientist with 4.5+ years building ML pipelines, supply-chain optimisers, and Gen AI tools for Fortune 500s — from PepsiCo to Honda.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn-primary">View Work</a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-image-wrap">
+      <img src="data:image/jpeg;base64,{profile_b64}" alt="Sahil Chawla" class="hero-image" />
+      <div class="hero-image-badge">EY · Great Learning · PepsiCo</div>
+    </div>
+  </div>
+</section>
+""", unsafe_allow_html=True)
+
+# ── stats strip ───────────────────────────────────────────────────────────────
+
+st.markdown(”””
+
+<section class="stats-strip">
+  <div class="stat-item">
+    <span class="stat-num">4.5+</span>
+    <span class="stat-label">Years of Experience</span>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <span class="stat-num">5+</span>
+    <span class="stat-label">Fortune 500 Clients</span>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <span class="stat-num">50%</span>
+    <span class="stat-label">Transport Cost Reduction</span>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <span class="stat-num">₹50Cr</span>
+    <span class="stat-label">Revenue from Courses</span>
+  </div>
+</section>
+""", unsafe_allow_html=True)
+
+# ── about ────────────────────────────────────────────────────────────────────
+
+st.markdown(”””
+
+<section id="about" class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">001 · About</span>
+      <h2 class="section-title">The data scientist<br>behind the work.</h2>
+    </div>
+    <div class="about-body">
+      <p>I'm <strong>Sahil Chawla</strong> — a Data Scientist and Technology Consultant at Ernst &amp; Young, based in Gurugram, India. I specialise in Machine Learning, Supply Chain Analytics, and Generative AI.</p>
+      <p>My journey started in customer service before pivoting through a PGP in Data Science. That grounding in real user problems shapes how I build: systems that are rigorous <em>and</em> actually used.</p>
+      <p>I've delivered ML pipelines at The Schwan's Company, a SQL optimisation engine at Ferrero Rocher, Power BI dashboards at Honda, and internal Gen AI tools at EY. Earlier, I built and taught data science curricula across 15 concurrent batches at Great Learning — including programs for NUS Singapore.</p>
+      <p>Outside work: video games, strong coffee, and going too deep into Figma prototypes I'll never ship.</p>
+    </div>
+  </div>
+</section>
+""", unsafe_allow_html=True)
+
+# ── experience ────────────────────────────────────────────────────────────────
+
+experiences = [
+{
+“title”: “Technology Consultant – Data Scientist”,
+“company”: “Ernst & Young (EY)”,
+“duration”: “Apr 2024 – Present”,
+“domain”: “Supply Chain · Fintech · Logistics”,
+“tags”: [“Python”, “PySpark”, “LangChain”, “SQL”, “Azure”, “Power BI”],
+“highlights”: [
+(“PepsiCo”, “Acted as Data Product Manager & SME; owned end-to-end GDO/DFS documentation and delivery across build → hypercare.”),
+(“Schwan’s Company”, “MLOps engineer; deployed ML inventory-planning pipelines, improving supply chain accuracy by 18%.”),
+(“Ferrero Rocher”, “PL/SQL developer; built BlueYonder TMS optimisation solver — 90% truck utilisation, 50% cost reduction.”),
+(“American Honda Motors”, “Productionised ML workflows; Power BI dashboards uncovered a $50M data gap across enterprise systems.”),
+(“Carnival Cruise Lines”, “Python automation streamlining SQL transformation workflows, eliminating manual execution effort.”),
+(“EY Internal”, “Built LangChain + Streamlit synthetic data generator & ERNY 2.0 AI chatbot (React UI).”),
+],
+},
+{
+“title”: “Associate Data Scientist – Faculty”,
+“company”: “Great Learning”,
+“duration”: “Jan 2022 – Apr 2024”,
+“domain”: “Ed-tech · AI Education”,
+“tags”: [“Python”, “SQL”, “ML”, “Gen AI”, “Tableau”],
+“highlights”: [
+(“NUS & GLCA Courses”, “Designed and delivered programs generating ₹50 Cr in revenue.”),
+(“AI Code Tutor”, “Built contextual hint engine → 40% user satisfaction uplift, 30% platform engagement increase.”),
+(“15 Concurrent Batches”, “Ran live sessions across data analysis, engineering, science, and Gen AI tracks simultaneously.”),
+],
+},
+{
+“title”: “Associate Data Scientist Intern”,
+“company”: “Great Learning”,
+“duration”: “Jan 2021 – Dec 2021”,
+“domain”: “Ed-tech · Cloud AI”,
+“tags”: [“Azure ML”, “IBM Watson”, “Python”, “Computer Vision”],
+“highlights”: [
+(“Azure ML Modules”, “Designed hands-on learning labs for ML on Microsoft Azure.”),
+(“IBM Watson”, “Built conversational and action-based chatbot tutorials.”),
+(“Computer Vision Projects”, “Led Azure Custom Vision projects — helmet detection & obstacle detection.”),
+],
+},
+]
+
+exp_cards = “”
+for exp in experiences:
+tags_html = “”.join(f’<span class="tag">{t}</span>’ for t in exp[“tags”])
+highlights_html = “”.join(
+f’<div class="highlight-row"><span class="highlight-client">{h[0]}</span><span class="highlight-desc">{h[1]}</span></div>’
+for h in exp[“highlights”]
+)
+exp_cards += f”””
+
+<div class="exp-card">
+  <div class="exp-header">
+    <div>
+      <h3 class="exp-title">{exp['title']}</h3>
+      <p class="exp-company">{exp['company']} <span class="exp-duration">· {exp['duration']}</span></p>
+      <p class="exp-domain">{exp['domain']}</p>
+    </div>
+    <div class="exp-tags">{tags_html}</div>
+  </div>
+  <div class="exp-highlights">{highlights_html}</div>
+</div>
 """
-st.markdown(navbar, unsafe_allow_html=True)
 
-# Profile Section
-def show_profile():
-    st.markdown("<div id='profile'></div>", unsafe_allow_html=True)
-    
-    with st.container():
-        col1, col2 = st.columns([1, 2], gap="medium")
-        
-        with col1:
-            # Load local profile image and encode it in Base64
-            profile_image_path = get_image_path("profile.jpg")
-            profile_image_base64 = get_image_base64(profile_image_path)
-            st.markdown(
-                f"""
-                <img src="data:image/jpeg;base64,{profile_image_base64}" alt="Profile Image" style="width:100%; border-radius:10px;" />
-                """,
-                unsafe_allow_html=True
-            )
-        
-        with col2:
-            st.markdown("<h2>Hello, I'm</h2>", unsafe_allow_html=True)
-            st.markdown("<h1>Sahil Chawla</h1>", unsafe_allow_html=True)
-            st.markdown("<h3>Data Scientist</h3>", unsafe_allow_html=True)
-            st.markdown(
-                """
-                <p>With over 4.5 years of professional experience, I specialize in Data Science and Machine Learning within the Supply Chain and Ed-tech domains. My enthusiasm for Generative AI drives my passion to build intelligent solutions, automate processes, and deliver measurable impact for global enterprise clients.</p>
-                <div style='text-align: left; margin-top: 20px; display: flex; gap: 15px;'>
-                    <a href="#contact">
-                        <button class="btn_color">Contact Info</button>
-                    </a>
-                    <a href="#download-cv">
-                        <button class="btn_color">Download CV</button>
-                    </a>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+st.markdown(f”””
 
-# About Section
-def show_about():
-    st.markdown("<div id='about'></div>", unsafe_allow_html=True)
-    st.markdown("<h2>Get To Know More</h2>", unsafe_allow_html=True)
-    st.markdown("<h1>About Sahil Chawla</h1>", unsafe_allow_html=True)
-    
-    with st.container():
-        st.markdown(
-            """
-            <div style='max-width: 800px; margin: auto; text-align: left;'>
-                <p>I am a Data Scientist with 4.5+ years of experience delivering Machine Learning and Generative AI solutions, currently working as a Technology Consultant at Ernst & Young (EY). I have supported global enterprise clients including PepsiCo, American Honda Motors, Carnival Cruise Lines, Ferrero Rocher, and The Schwan's Company, driving measurable improvements in cost efficiency, planning accuracy, and operational performance.</p>
-                <p>Previously at Great Learning, I designed and delivered data science, data engineering, and Generative AI courses across 15 concurrent batches, created programs for NUS (National University of Singapore) and the Great Learning Career Academy, generating INR 50 crore in revenue through the courses I designed and delivered.</p>
-                <p>My passion lies in building intelligent systems — from ML pipelines and supply chain optimization solvers to AI chatbots and synthetic data generators — leveraging Python, SQL, PySpark, LangChain, and cloud platforms like Microsoft Azure.</p>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+<section id="experience" class="section section-alt">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">002 · Experience</span>
+      <h2 class="section-title">Where I've shipped<br>real things.</h2>
+    </div>
+    <div class="exp-list">{exp_cards}</div>
+  </div>
+</section>
+""", unsafe_allow_html=True)
 
-# Education Section
-def show_education():
-    st.markdown("<div id='education'></div>", unsafe_allow_html=True)
-    st.markdown("<h2>My</h2>", unsafe_allow_html=True)
-    st.markdown("<h1>Education</h1>", unsafe_allow_html=True)
-    
-    education = [
-        {
-            'degree': 'Executive PGP in Management (Data Science & Analytics)',
-            'institution': 'Great Lakes Institute of Management, Gurugram',
-            'duration': 'Feb 2022 - Feb 2023',
-        },
-        {
-            'degree': 'Post Graduate Program in Data Science & Engineering',
-            'institution': 'Great Lakes Institute of Management, Gurugram',
-            'duration': 'Oct 2020 - Aug 2021',
-        },
-        {
-            'degree': 'Bachelor of Technology in Civil Engineering',
-            'institution': 'Anand International College of Engineering',
-            'duration': '2013 - 2017',
-            'percentage': '65%',
-        },
-        {
-            'degree': '12th - PCMB',
-            'institution': 'National Institute of Open Schooling',
-            'duration': '2011 - 2012',
-            'percentage': '65%',
-        },
-        {
-            'degree': '10th Grade',
-            'institution': 'St. Anselms Sr. Sec. School',
-            'duration': '2009 - 2010',
-            'percentage': '8.6 CGPA',
-        }
-    ]
-    
-    with st.container():
-        for edu in education:
-            edu_content = f"""
-            <div style='margin-bottom: 1.5rem;'>
-                <h3>{edu['degree']}</h3>
-                <p><strong>{edu['institution']}</strong></p>
-                <p>{edu['duration']}</p>
-            """
-            if 'percentage' in edu:
-                edu_content += f"<p><strong>Percentage:</strong> {edu['percentage']}</p>"
-            edu_content += "</div>"
-            st.markdown(edu_content, unsafe_allow_html=True)
-            st.markdown("---")
+# ── projects ──────────────────────────────────────────────────────────────────
 
-# Experience Section
-def show_experience():
-    st.markdown("<div id='experience'></div>", unsafe_allow_html=True)
-    st.markdown("<h2>My</h2>", unsafe_allow_html=True)
-    st.markdown("<h1>Experience</h1>", unsafe_allow_html=True)
-    
-    experience = [
-        {
-            'title': 'Associate Data Scientist Intern',
-            'company': 'Great Learning, Gurugram',
-            'duration': 'Jan 2021 - Dec 2021',
-            'domain': 'Ed-tech',
-            'technologies': ['Python', 'SQL', 'Excel', 'Microsoft Azure', 'IBM Watson'],
-            'description': """
-            - Designed and delivered hands-on AI and ML learning modules using Microsoft Azure ML.
-            - Built IBM Watson Assistant tutorials for conversational and action-based chatbots.
-            - Led live project support sessions and implemented real-world Azure Custom Vision projects including helmet and obstacle detection.
-            """
-        },
-        {
-            'title': 'Associate Data Scientist - Faculty',
-            'company': 'Great Learning, Gurugram',
-            'duration': 'Jan 2022 - Apr 2024',
-            'domain': 'Ed-tech',
-            'technologies': ['Python', 'SQL', 'Excel', 'Tableau', 'Machine Learning', 'Generative AI'],
-            'description': """
-            - Designed and delivered data analysis, data engineering, data science, and Generative AI courses across 15 concurrent batches.
-            - Created courses for NUS (National University of Singapore) and GLCA (Great Learning Career Academy), generating INR 50 crore in revenue.
-            - Developed an AI code tutor providing real-time contextual hints, leading to a 40% increase in user satisfaction and 30% uplift in platform engagement.
-            """
-        },
-        {
-            'title': 'Technology Consultant - Data Scientist',
-            'company': 'Ernst & Young (EY), Gurugram',
-            'duration': 'Apr 2024 - Present',
-            'domain': 'Supply Chain',
-            'technologies': ['Python', 'SQL', 'PL/SQL', 'PySpark', 'LangChain', 'Power BI', 'Microsoft Azure'],
-            'description': """
-            - Worked as a Data Product Manager for PepsiCo, acting as SPOC and SME for data products; owned GDO and DFS/DRD documentation, led end-to-end delivery across build, UT, FT, SIT, and hypercare.
-            - Worked as an MLOps engineer for The Schwan's Company, deploying ML pipelines for inventory planning and improving supply chain accuracy by 18%.
-            - Worked as a PL/SQL developer for Ferrero Rocher, building a supply chain optimization solver for BlueYonder TMS that improved truck utilization by 90% and reduced transportation costs by 50%.
-            - Worked as an MLOps engineer for American Honda Motors, productionizing ML workflows and delivering Power BI dashboards that identified a $50M data gap across enterprise systems.
-            - Worked as a Python developer for Carnival Cruise Lines, building automation to streamline SQL transformation workflows and reduce manual execution effort.
-            - Built internal EY AI assets including a Generative AI tool using LangChain and Streamlit for synthetic data generation, and ERNY 2.0, an internal AI chatbot built with LangChain and a React UI.
-            """
-        }
-    ]
-    
-    with st.container():
-        for exp in experience:
-            technologies_used = ", ".join(exp['technologies'])
-            # Split the description into list items
-            description_items = [item.strip().lstrip('- ') for item in exp['description'].split('\n') if item.strip()]
-            exp_content = f"""
-            <div style='margin-bottom: 1.5rem;'>
-                <h3>{exp['title']} - <em>{exp['company']}</em></h3>
-                <p><strong>Duration:</strong> {exp['duration']}</p>
-                <p><strong>Domain:</strong> {exp['domain']}</p>
-                <p><strong>Technologies Used:</strong> {technologies_used}</p>
-                <ul>
-                    {''.join([f"<li>{item}</li>" for item in description_items])}
-                </ul>
-            </div>
-            """
-            st.markdown(exp_content, unsafe_allow_html=True)
-            st.markdown("---")
+projects = [
+{
+“title”: “Annual Turnover Prediction”,
+“tags”: [“Regression”, “LGBM”, “CatBoost”, “Random Forest”],
+“status”: “Shipped”,
+“challenge”: “Predict restaurant annual turnover from operational variables with minimal prediction error.”,
+“approach”: “Benchmarked LGBM, CatBoost, and Random Forest regressors; optimised for RMSE with hyperparameter tuning.”,
+“result”: “Best RMSE”,
+“metric”: “RMSE”,
+“link”: “https://github.com/Sahilchawla1094/Annual-Turnover-of-a-restaurant”,
+},
+{
+“title”: “Home Credit Default Risk”,
+“tags”: [“Classification”, “LightGBM”, “Logistic Regression”, “AUC”],
+“status”: “Shipped”,
+“challenge”: “Identify clients at risk of loan default to reduce financial exposure for a lender.”,
+“approach”: “Implemented Logistic Regression, Random Forest, and LightGBM; feature-engineered credit history signals.”,
+“result”: “High AUC Score”,
+“metric”: “AUC”,
+“link”: “https://github.com/Sahilchawla1094/Home-Credit-Default-Risk”,
+},
+{
+“title”: “Business Loan Default Prediction”,
+“tags”: [“Classification”, “Decision Tree”, “F1 Score”, “Imbalanced Data”],
+“status”: “Shipped”,
+“challenge”: “Predict whether a business loan application will default, with heavy class imbalance.”,
+“approach”: “Applied SMOTE resampling + Decision Tree and Random Forest; optimised for F1 to handle imbalance.”,
+“result”: “Best F1 Score”,
+“metric”: “F1”,
+“link”: “https://github.com/Sahilchawla1094/Predicting-whether-a-business-loan-applicant-will-default-or-not”,
+},
+{
+“title”: “Thera Bank Liability Prediction”,
+“tags”: [“ANN”, “Deep Learning”, “Banking”],
+“status”: “Shipped”,
+“challenge”: “Predict which liability customers are likely to purchase personal loans to target marketing spend.”,
+“approach”: “Built and tuned an Artificial Neural Network; optimised threshold for best F1 on the minority class.”,
+“result”: “High F1 Score”,
+“metric”: “F1”,
+“link”: “https://github.com/Sahilchawla1094/Thera-Bank”,
+},
+{
+“title”: “Water Potability Analysis”,
+“tags”: [“ANN”, “Binary Classification”, “Environment”],
+“status”: “Shipped”,
+“challenge”: “Classify water samples as safe or unsafe for drinking from physicochemical measurements.”,
+“approach”: “ANN with normalised inputs; handled missing values and class imbalance via weighted training.”,
+“result”: “Strong Accuracy”,
+“metric”: “Accuracy”,
+“link”: “https://github.com/Sahilchawla1094/Water-Potability”,
+},
+{
+“title”: “CS:GO Round Winner Prediction”,
+“tags”: [“XGBoost”, “Random Forest”, “Gaming Analytics”],
+“status”: “Shipped”,
+“challenge”: “Predict the winning team (T or CT) mid-round from in-game state variables.”,
+“approach”: “Compared Logistic Regression, Decision Tree, Random Forest, and XGBoost; selected best by accuracy.”,
+“result”: “Best Accuracy”,
+“metric”: “Accuracy”,
+“link”: “https://github.com/Sahilchawla1094/Counter-Strike–GO-Round-winner”,
+},
+]
 
-# Skills Section with Plotly Radar Chart
-def show_skills():
-    st.markdown("<div id='skills'></div>", unsafe_allow_html=True)
-    st.markdown("<h2>My</h2>", unsafe_allow_html=True)
-    st.markdown("<h1>Skills</h1>", unsafe_allow_html=True)
-    
-    # Technical Skills Data (Percentage)
-    technical_skills = {
-        'Python': 90,
-        'SQL': 85,
-        'PySpark': 75,
-        'Data Analysis': 90,
-        'Data Engineering': 80,
-        'Machine Learning': 85,
-        'Deep Learning': 75,
-        'Statistics': 80,
-        'Generative AI': 75,
-        'LLMs & LangChain': 70,
-        'NLP': 70,
-        'Tableau': 70,
-        'Power BI': 75,
-        'Microsoft Azure': 70,
-        'Databricks': 65,
-        'Snowflake': 65,
-        'PL/SQL': 65,
-        'Excel': 90,
-        'Streamlit': 80
-    }
-    
-    # Languages
-    languages = ['English', 'Hindi']
-    
-    # Prepare data for Radar Chart
-    skills = list(technical_skills.keys())
-    proficiency = list(technical_skills.values())
-    
-    # Radar charts require the data to loop back to the start
-    skills += [skills[0]]
-    proficiency += [proficiency[0]]
-    
-    fig = go.Figure(
-        data=[
-            go.Scatterpolar(
-                r=proficiency,
-                theta=skills,
-                fill='toself',
-                name='Proficiency',
-                line=dict(color='#0071e3')
-            )
-        ]
-    )
-    
-    fig.update_layout(
-        polar=dict(
-            radialaxis=dict(
-                visible=True,
-                range=[0, 100],
-                tickmode='linear',
-                tick0=0,
-                dtick=20
-            )
-        ),
-        showlegend=False,
-        title=dict(
-            text='Technical Skills Proficiency',
-            x=0.5,
-            y=0.95,
-            font=dict(size=20)
-        ),
-        margin=dict(l=50, r=50, t=100, b=50),
-        plot_bgcolor='rgba(0,0,0,0)',
-        paper_bgcolor='rgba(0,0,0,0)'
-    )
-    
-    # Display the Plotly Radar Chart
-    st.plotly_chart(fig, use_container_width=True)
-    
-    # Display Languages
-    st.markdown("### Languages")
-    languages_col1, languages_col2 = st.columns([1, 1], gap="small")
-    
-    with languages_col1:
-        for language in languages[:len(languages)//2]:
-            st.markdown(f"- {language}")
-    
-    with languages_col2:
-        for language in languages[len(languages)//2:]:
-            st.markdown(f"- {language}")
-    
-    st.markdown("---")
+proj_cards = “”
+for p in projects:
+tags_html = “”.join(f’<span class="tag">{t}</span>’ for t in p[“tags”])
+proj_cards += f”””
 
-# Projects Section
-def show_projects():
-    st.markdown("<div id='projects'></div>", unsafe_allow_html=True)
-    st.markdown("<h2>My</h2>", unsafe_allow_html=True)
-    st.markdown("<h1>Projects</h1>", unsafe_allow_html=True)
-    
-    projects = [
-        {
-            'title': 'Annual Turnover Prediction for Restaurant',
-            'description': 'Predict the Annual Turnover of a Restaurant based on provided variables. Utilized LGBM Regressor, CATBOOST Regressor, and Random Forest Regressor to achieve optimal RMSE.',
-            'image': 'project1.jpg',
-            'link': 'https://github.com/Sahilchawla1094/Annual-Turnover-of-a-restaurant'
-        },
-        {
-            'title': 'Home Credit Default Risk',
-            'description': 'Identify if a new client shows any risk of loan default based on provided variables. Implemented Logistic Regression, Random Forest Classifier, and LightGBM Classifier to achieve a good AUC score.',
-            'image': 'project2.jpg',
-            'link': 'https://github.com/Sahilchawla1094/Home-Credit-Default-Risk'
-        },
-        {
-            'title': 'Business Loan Application Default Prediction',
-            'description': 'Determine if a new business loan application will default based on provided variables. Employed Logistic Regression, Decision Tree Classifier, and Random Forest Classifier to predict the best F1 score.',
-            'image': 'project3.jpg',
-            'link': 'https://github.com/Sahilchawla1094/Predicting-whether-a-business-loan-applicant-will-default-or-not'
-        },
-        {
-            'title': 'Thera Bank Liability Prediction',
-            'description': 'Predict the likelihood of a liability customer buying personal loans using Artificial Neural Networks (ANN) to achieve the best F1 score.',
-            'image': 'project4.jpg',
-            'link': 'https://github.com/Sahilchawla1094/Thera-Bank'
-        },
-        {
-            'title': 'Water Portability Analysis',
-            'description': 'Identify whether water is safe for drinking based on provided variables. Utilized Artificial Neural Networks (ANN) to achieve the best Accuracy score.',
-            'image': 'project5.jpg',
-            'link': 'https://github.com/Sahilchawla1094/Water-Potability'
-        },
-        {
-            'title': 'Counter-Strike: GO Round Winner Prediction',
-            'description': 'Predict the match winner (terrorist or counter-terrorist) using variables from the dataset. Implemented Logistic Regression, Decision Tree Classifier, Random Forest Classifier, and XG Boost to achieve the best Accuracy score.',
-            'image': 'project6.jpg',
-            'link': 'https://github.com/Sahilchawla1094/Counter-Strike--GO-Round-winner'
-        }
-    ]
-    
-    with st.container():
-        for project in projects:
-            st.markdown("<div style='margin-bottom: 2rem;'></div>", unsafe_allow_html=True)
-            cols = st.columns([1, 2], gap="medium")
-            with cols[0]:
-                project_image_path = get_image_path("projects", project['image'])
-                project_image_base64 = get_image_base64(project_image_path)
-                st.markdown(
-                    f"""
-                    <img src="data:image/jpeg;base64,{project_image_base64}" alt="{project['title']} Image" style="width:100%; border-radius:10px;" />
-                    """,
-                    unsafe_allow_html=True
-                )
-            with cols[1]:
-                st.markdown(f"### {project['title']}")
-                st.write(project['description'])
-                st.markdown(f"**[View Project]({project['link']})**")
-        st.markdown("---")
+<div class="proj-card">
+  <div class="proj-card-top">
+    <div class="proj-meta">
+      <span class="proj-status">{p['status']}</span>
+      {tags_html}
+    </div>
+    <h3 class="proj-title">{p['title']}</h3>
+  </div>
+  <div class="proj-card-body">
+    <div class="proj-row">
+      <span class="proj-row-label">Challenge</span>
+      <span class="proj-row-val">{p['challenge']}</span>
+    </div>
+    <div class="proj-row">
+      <span class="proj-row-label">Approach</span>
+      <span class="proj-row-val">{p['approach']}</span>
+    </div>
+    <div class="proj-result-bar">
+      <span class="proj-result-num">{p['result']}</span>
+      <span class="proj-result-metric">Key metric: {p['metric']}</span>
+    </div>
+  </div>
+  <a href="{p['link']}" target="_blank" class="proj-link">View on GitHub ↗</a>
+</div>
+"""
 
-# Other Platforms Section
-def show_other_platforms():
-    st.markdown("<div id='other-platforms'></div>", unsafe_allow_html=True)
-    st.markdown("<h2>Explore My</h2>", unsafe_allow_html=True)
-    st.markdown("<h1>Other Platforms</h1>", unsafe_allow_html=True)
-    
-    platforms = [
-        {
-            'title': 'GitHub',
-            'description': 'All things code',
-            'image': 'github.png',
-            'link': 'https://github.com/Sahilchawla1094'
-        },
-        {
-            'title': 'LinkedIn',
-            'description': 'Connect with me professionally',
-            'image': 'linkedin.png',
-            'link': 'https://www.linkedin.com/in/sahil-chawla9799558521/'
-        },
-        {
-            'title': 'Tableau Public',
-            'description': 'Check out my data visualizations',
-            'image': 'tableau.png',
-            'link': 'https://public.tableau.com/app/profile/sahil.chawla'
-        }
-    ]
-    
-    with st.container():
-        cols = st.columns(3, gap="medium")
-        for idx, platform in enumerate(platforms):
-            with cols[idx]:
-                platform_image_path = get_image_path("icons", platform['image'])
-                platform_image_base64 = get_image_base64(platform_image_path)
-                st.markdown(
-                    f"""
-                    <a href="{platform['link']}" target="_blank" style='text-decoration: none; color: inherit;'>
-                        <div class="platform-card">
-                            <img src="data:image/png;base64,{platform_image_base64}" alt="{platform['title']} Icon" width="50" height="50" />
-                            <h3>{platform['title']}</h3>
-                            <p>{platform['description']}</p>
-                        </div>
-                    </a>
-                    """,
-                    unsafe_allow_html=True
-                )
-    st.markdown("---")
+st.markdown(f”””
 
-# Contact Section
-def show_contact():
-    st.markdown("<div id='contact'></div>", unsafe_allow_html=True)
-    st.markdown("<h1>Contact Me</h1>", unsafe_allow_html=True)
-    
-    with st.container():
-        # Contact Form
-        with st.form("contact_form"):
-            col1, col2 = st.columns([1, 1], gap="small")
-            with col1:
-                name = st.text_input("Name", placeholder="Enter your full name")
-                email = st.text_input("Email", placeholder="Enter your email")
-            with col2:
-                phone = st.text_input("Phone", placeholder="+919799558521")
-                address = st.text_input("Address", placeholder="A45 B HKM Nagar, Alwar (Raj)")
-            message = st.text_area("Message", placeholder="Your message...")
-            submit = st.form_submit_button("Send Message")
-        
-        if submit:
-            if not name or not email or not phone or not address or not message:
-                st.error("Please fill in all fields.")
-            else:
-                try:
-                    service_id = st.secrets["emailjs"]["service_id"]
-                    template_id = st.secrets["emailjs"]["template_id"]
-                    user_id = st.secrets["emailjs"]["user_id"]
-                    
-                    data = {
-                        "service_id": service_id,
-                        "template_id": template_id,
-                        "user_id": user_id,
-                        "template_params": {
-                            "from_name": name,
-                            "from_email": email,
-                            "from_phone": phone,
-                            "from_address": address,
-                            "message": message
-                        }
-                    }
-                    
-                    response = requests.post("https://api.emailjs.com/api/v1.0/email/send", json=data, timeout=10)
-                    
-                    if response.status_code == 200:
-                        st.success("Message sent successfully!")
-                        st.rerun()
-                    else:
-                        st.error("Failed to send message. Please try again.")
-                except Exception as e:
-                    st.error("An error occurred while sending the message.")
-    
-    with st.container():
-        # Contact Information with Icons
-        st.markdown(
-            """
-            <div style='max-width: 800px; margin: 2rem auto; text-align: left;'>
-                <h2>Contact Information</h2>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-        
-        contact_details = [
-            {
-                'icon': 'phone.png',
-                'alt': 'Phone Icon',
-                'label': 'Phone',
-                'value': '+919799558521'
-            },
-            {
-                'icon': 'email.png',
-                'alt': 'Email Icon',
-                'label': 'Email',
-                'value': '<a href="mailto:Sahilchawla1094@gmail.com">Sahilchawla1094@gmail.com</a>'
-            },
-            {
-                'icon': 'address.png',
-                'alt': 'Address Icon',
-                'label': 'Address',
-                'value': 'A45 B HKM Nagar, Alwar (Raj)'
-            }
-        ]
-        
-        for detail in contact_details:
-            icon_path = get_image_path("icons", detail['icon'])
-            icon_base64 = get_image_base64(icon_path)
-            st.markdown(
-                f"""
-                <div class='info-item'>
-                    <img src="data:image/png;base64,{icon_base64}" alt="{detail['alt']}" class="contact-icon" />
-                    <p><strong>{detail['label']}:</strong> {detail['value']}</p>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+<section id="projects" class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">003 · Selected Work</span>
+      <h2 class="section-title">Projects built<br>on real data.</h2>
+      <p class="section-sub">A curated set of ML and analytics work — each solving a concrete problem with measurable output.</p>
+    </div>
+    <div class="proj-grid">{proj_cards}</div>
+  </div>
+</section>
+""", unsafe_allow_html=True)
 
-# Download CV Section
-def download_cv():
-    st.markdown("<div id='download-cv'></div>", unsafe_allow_html=True)
-    cv_path = get_image_path("cv", "Resume___Sahil_Chawla.pdf")
-    try:
-        with open(cv_path, "rb") as file:
-            st.download_button(
-                label="Download CV",
-                data=file,
-                file_name="Resume___Sahil_Chawla.pdf",
-                mime="application/pdf",
-                key="download_cv_button"
-            )
-    except FileNotFoundError:
-        st.warning("CV file not found. Please ensure 'Resume___Sahil_Chawla.pdf' is placed in the 'assets/cv/' directory.")
+# ── skills ────────────────────────────────────────────────────────────────────
 
-# Footer Section with Base64 Images
-def show_footer():
-    github_img = get_image_base64(get_image_path('icons', 'github.png'))
-    linkedin_img = get_image_base64(get_image_path('icons', 'linkedin.png'))
-    email_img = get_image_base64(get_image_path('icons', 'email.png'))
-    footer_html = f"""
-    <footer>
-        <p>&copy; {datetime.now().year} Sahil Chawla. All Rights Reserved.</p>
-        <div>
-            <a href="https://github.com/Sahilchawla1094" target="_blank">
-                <img src="data:image/png;base64,{github_img}" alt="GitHub" />
-            </a>
-            <a href="https://www.linkedin.com/in/sahil-chawla9799558521/" target="_blank">
-                <img src="data:image/png;base64,{linkedin_img}" alt="LinkedIn" />
-            </a>
-            <a href="mailto:Sahilchawla1094@gmail.com" target="_blank">
-                <img src="data:image/png;base64,{email_img}" alt="Email" />
-            </a>
-        </div>
-    </footer>
-    """
-    st.markdown(footer_html, unsafe_allow_html=True)
+skill_groups = [
+(“Languages & Querying”, [“Python”, “SQL”, “PL/SQL”, “PySpark”]),
+(“ML & AI”, [“Machine Learning”, “Deep Learning”, “NLP”, “LLMs”, “LangChain”, “Generative AI”, “Statistics”]),
+(“Data & Analytics”, [“Data Analysis”, “Data Engineering”, “Tableau”, “Power BI”, “Excel”]),
+(“Cloud & Infra”, [“Microsoft Azure”, “Databricks”, “Snowflake”]),
+(“Frameworks & Tools”, [“Streamlit”, “Scikit-learn”, “XGBoost”, “LightGBM”, “CatBoost”, “Pandas”, “NumPy”]),
+]
 
-# Main App Logic
-def main():
-    show_profile()
-    show_about()
-    show_education()
-    show_experience()
-    show_skills()
-    show_projects()
-    show_other_platforms()
-    show_contact()
-    download_cv()
-    show_footer()
+skill_html = “”
+for group_name, skills in skill_groups:
+pills = “”.join(f’<span class="skill-pill">{s}</span>’ for s in skills)
+skill_html += f”””
 
-if __name__ == "__main__":
-    main()
+<div class="skill-group">
+  <h4 class="skill-group-name">{group_name}</h4>
+  <div class="skill-pills">{pills}</div>
+</div>
+"""
+
+st.markdown(f”””
+
+<section id="skills" class="section section-alt">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">004 · Skills</span>
+      <h2 class="section-title">Tools I reach for<br>on day one.</h2>
+    </div>
+    <div class="skills-grid">{skill_html}</div>
+  </div>
+</section>
+""", unsafe_allow_html=True)
+
+# ── education ────────────────────────────────────────────────────────────────
+
+education = [
+(“Executive PGP in Management (Data Science & Analytics)”, “Great Lakes Institute of Management, Gurugram”, “Feb 2022 – Feb 2023”),
+(“Post Graduate Program in Data Science & Engineering”, “Great Lakes Institute of Management, Gurugram”, “Oct 2020 – Aug 2021”),
+(“B.Tech in Civil Engineering”, “Anand International College of Engineering”, “2013 – 2017”),
+]
+
+edu_items = “”.join(f”””
+
+<div class="edu-item">
+  <div class="edu-dot"></div>
+  <div class="edu-content">
+    <h4 class="edu-degree">{e[0]}</h4>
+    <p class="edu-inst">{e[1]}</p>
+    <p class="edu-year">{e[2]}</p>
+  </div>
+</div>
+""" for e in education)
+
+st.markdown(f”””
+
+<section id="education" class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">005 · Education</span>
+      <h2 class="section-title">Foundation of<br>the craft.</h2>
+    </div>
+    <div class="edu-timeline">{edu_items}</div>
+  </div>
+</section>
+""", unsafe_allow_html=True)
+
+# ── contact ───────────────────────────────────────────────────────────────────
+
+st.markdown(”””
+
+<section id="contact" class="section section-alt">
+  <div class="section-inner contact-inner">
+    <div class="section-header">
+      <span class="section-tag">006 · Contact</span>
+      <h2 class="section-title">Let's build<br>something real.</h2>
+      <div class="contact-details">
+        <a href="mailto:Sahilchawla1094@gmail.com" class="contact-link">Sahilchawla1094@gmail.com ↗</a>
+        <a href="https://www.linkedin.com/in/sahil-chawla9799558521/" target="_blank" class="contact-link">LinkedIn ↗</a>
+        <a href="https://github.com/Sahilchawla1094" target="_blank" class="contact-link">GitHub ↗</a>
+        <a href="https://public.tableau.com/app/profile/sahil.chawla" target="_blank" class="contact-link">Tableau Public ↗</a>
+      </div>
+    </div>
+""", unsafe_allow_html=True)
+
+with st.container():
+st.markdown(’<div class="contact-form-wrap">’, unsafe_allow_html=True)
+with st.form(“contact_form”, clear_on_submit=True):
+col1, col2 = st.columns(2, gap=“medium”)
+with col1:
+name = st.text_input(“Name”, placeholder=“Your full name”)
+email = st.text_input(“Email”, placeholder=“your@email.com”)
+with col2:
+phone = st.text_input(“Phone”, placeholder=”+91 XXXXX XXXXX”)
+subject = st.text_input(“Subject”, placeholder=“What’s this about?”)
+message = st.text_area(“Message”, placeholder=“Tell me about your project or opportunity…”, height=150)
+submit = st.form_submit_button(“Send Message →”)
+if submit:
+if not name or not email or not message:
+st.error(“Please fill in name, email, and message.”)
+else:
+try:
+service_id = st.secrets[“emailjs”][“service_id”]
+template_id = st.secrets[“emailjs”][“template_id”]
+user_id = st.secrets[“emailjs”][“user_id”]
+data = {
+“service_id”: service_id,
+“template_id”: template_id,
+“user_id”: user_id,
+“template_params”: {
+“from_name”: name,
+“from_email”: email,
+“from_phone”: phone,
+“message”: message
+}
+}
+response = requests.post(“https://api.emailjs.com/api/v1.0/email/send”, json=data, timeout=10)
+if response.status_code == 200:
+st.success(“Message sent! I’ll get back to you soon.”)
+else:
+st.error(“Failed to send. Try emailing directly.”)
+except Exception:
+st.error(“Something went wrong. Please email directly.”)
+st.markdown(’</div>’, unsafe_allow_html=True)
+
+st.markdown(”</div></section>”, unsafe_allow_html=True)
+
+# ── download cv ───────────────────────────────────────────────────────────────
+
+st.markdown(’<div id="download-cv" style="padding:2rem 4rem;">’, unsafe_allow_html=True)
+cv_path = get_image_path(“cv”, “Resume___Sahil_Chawla.pdf”)
+try:
+with open(cv_path, “rb”) as f:
+st.download_button(
+label=“⬇ Download Resume”,
+data=f,
+file_name=“Resume_Sahil_Chawla.pdf”,
+mime=“application/pdf”,
+)
+except FileNotFoundError:
+st.info(“Place your PDF at assets/cv/Resume___Sahil_Chawla.pdf to enable download.”)
+st.markdown(’</div>’, unsafe_allow_html=True)
+
+# ── footer ────────────────────────────────────────────────────────────────────
+
+st.markdown(f”””
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <span class="footer-logo">SC</span>
+      <p class="footer-tagline">Data Scientist · Gurugram, India</p>
+    </div>
+    <nav class="footer-nav">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <p class="footer-copy">© {datetime.now().year} Sahil Chawla. All rights reserved.</p>
+  </div>
+</footer>
+""", unsafe_allow_html=True)

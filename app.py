@@ -67,98 +67,6 @@ st.markdown("""
 
 
 # ── Animation injector (particles + scroll reveal + skill bars) ────────────────
-def inject_animations():
-    components.html("""
-    <script>
-    (function () {
-        const p = window.parent;
-
-        /* ── Particle canvas ── */
-        if (!p.document.getElementById('sc-particles')) {
-            const canvas = p.document.createElement('canvas');
-            canvas.id = 'sc-particles';
-            canvas.style.cssText =
-                'position:fixed;top:0;left:0;width:100vw;height:100vh;' +
-                'z-index:0;pointer-events:none;';
-            p.document.body.appendChild(canvas);
-
-            const ctx = canvas.getContext('2d');
-            function resize() {
-                canvas.width  = p.window.innerWidth;
-                canvas.height = p.window.innerHeight;
-            }
-            resize();
-            p.window.addEventListener('resize', resize);
-
-            const pts = Array.from({ length: 65 }, () => ({
-                x:  Math.random() * canvas.width,
-                y:  Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.38,
-                vy: (Math.random() - 0.5) * 0.38,
-                r:  Math.random() * 1.4 + 0.5,
-                a:  Math.random() * 0.35 + 0.08
-            }));
-
-            function draw() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                pts.forEach(pt => {
-                    pt.x += pt.vx; pt.y += pt.vy;
-                    if (pt.x < 0 || pt.x > canvas.width)  pt.vx *= -1;
-                    if (pt.y < 0 || pt.y > canvas.height)  pt.vy *= -1;
-                    ctx.beginPath();
-                    ctx.arc(pt.x, pt.y, pt.r, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(0,212,255,${pt.a})`;
-                    ctx.fill();
-                });
-                for (let i = 0; i < pts.length; i++) {
-                    for (let j = i + 1; j < pts.length; j++) {
-                        const dx = pts[i].x - pts[j].x;
-                        const dy = pts[i].y - pts[j].y;
-                        const d  = Math.sqrt(dx * dx + dy * dy);
-                        if (d < 105) {
-                            ctx.beginPath();
-                            ctx.strokeStyle = `rgba(0,212,255,${0.12 * (1 - d / 105)})`;
-                            ctx.lineWidth = 0.5;
-                            ctx.moveTo(pts[i].x, pts[i].y);
-                            ctx.lineTo(pts[j].x, pts[j].y);
-                            ctx.stroke();
-                        }
-                    }
-                }
-                p.requestAnimationFrame(draw);
-            }
-            draw();
-        }
-
-        /* ── Scroll reveal + skill bar trigger ── */
-        function setupObservers() {
-            const revealObs = new p.IntersectionObserver(entries => {
-                entries.forEach(e => {
-                    if (e.isIntersecting) e.target.classList.add('sc-visible');
-                });
-            }, { threshold: 0.1 });
-
-            p.document.querySelectorAll('.sc-reveal, .sc-reveal-left')
-                .forEach(el => revealObs.observe(el));
-
-            const barObs = new p.IntersectionObserver(entries => {
-                entries.forEach(e => {
-                    if (e.isIntersecting) {
-                        e.target.querySelectorAll('.skill-bar-fill')
-                            .forEach(b => b.classList.add('animated'));
-                    }
-                });
-            }, { threshold: 0.2 });
-
-            p.document.querySelectorAll('.skills-container')
-                .forEach(el => barObs.observe(el));
-        }
-
-        setTimeout(setupObservers, 800);
-        setTimeout(setupObservers, 2200);
-    })();
-    </script>
-    """, height=0, scrolling=False)
 
 
 # ── Stats counters component ───────────────────────────────────────────────────
@@ -743,7 +651,6 @@ def show_footer():
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 def main():
-    inject_animations()
     show_profile()
     show_about()
     show_education()

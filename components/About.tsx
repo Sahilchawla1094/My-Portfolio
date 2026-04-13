@@ -34,14 +34,14 @@ export default function About() {
     <section ref={sectionRef} id="about" className="section">
       <div className="container">
         <span className="label reveal">About Me</span>
-        <h2 className="text-5xl font-black heading-gradient mb-16 reveal">Who I Am</h2>
+        <h2 className="text-4xl md:text-5xl font-black heading-gradient mb-10 md:mb-16 reveal">Who I Am</h2>
 
         <div className="grid md:grid-cols-2 gap-16 items-start">
           {/* Left */}
           <div>
             <div
               className="reveal relative rounded-2xl overflow-hidden mb-10"
-              style={{ aspectRatio: "4/5", border: "1px solid rgba(0,212,255,0.15)" }}
+              style={{ aspectRatio: "3/2", border: "1px solid rgba(0,212,255,0.15)" }}
             >
               <Image
                 src="/assets/profile.jpg"

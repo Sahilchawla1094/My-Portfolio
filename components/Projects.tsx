@@ -33,7 +33,7 @@ export default function Projects() {
     <section ref={sectionRef} id="projects" className="section">
       <div className="container">
         <span className="label reveal">Portfolio</span>
-        <h2 className="text-5xl font-black heading-gradient mb-16 reveal">Projects</h2>
+        <h2 className="text-4xl md:text-5xl font-black heading-gradient mb-10 md:mb-16 reveal">Projects</h2>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {projects.map((p, i) => (

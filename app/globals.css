@@ -55,6 +55,12 @@ body::after {
   90%       { transform: translate(-2%, 4%); }
 }
 
+/* ── Hide cursor on touch devices ───────────────────── */
+@media (hover: none) {
+  html { cursor: auto; }
+  .cursor-dot, .cursor-ring { display: none !important; }
+}
+
 /* ── Custom cursor ──────────────────────────────────── */
 .cursor-dot,
 .cursor-ring {
@@ -98,12 +104,20 @@ body::after {
 ::selection { background: rgba(0, 212, 255, 0.2); color: #fff; }
 
 /* ── Section base ───────────────────────────────────── */
-.section { padding: 120px 0; }
+.section { padding: 80px 0; }
+
+@media (min-width: 768px) {
+  .section { padding: 120px 0; }
+}
 
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
+}
+
+@media (min-width: 768px) {
+  .container { padding: 0 24px; }
 }
 
 /* ── Section label ──────────────────────────────────── */

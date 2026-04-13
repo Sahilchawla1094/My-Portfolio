@@ -58,7 +58,7 @@ export default function Contact() {
     <section ref={sectionRef} id="contact" className="section">
       <div className="container">
         <span className="label reveal">Get In Touch</span>
-        <h2 className="text-5xl font-black heading-gradient mb-16 reveal">Contact</h2>
+        <h2 className="text-4xl md:text-5xl font-black heading-gradient mb-10 md:mb-16 reveal">Contact</h2>
 
         <div className="grid md:grid-cols-2 gap-16">
           {/* Info */}

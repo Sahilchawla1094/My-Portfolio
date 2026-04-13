@@ -163,7 +163,7 @@ export default function Hero() {
         aria-hidden
       />
 
-      <div className="container relative z-10 pt-28 pb-16">
+      <div className="container relative z-10 pt-24 md:pt-28 pb-16">
         {/* Greeting */}
         <p className="label mb-4">// hello, world</p>
 
@@ -201,7 +201,7 @@ export default function Hero() {
         {/* Stats */}
         <div
           ref={statsRef}
-          className="grid grid-cols-2 md:grid-cols-4 gap-px mt-20 border border-white/5 rounded-2xl overflow-hidden"
+          className="grid grid-cols-2 md:grid-cols-4 gap-px mt-12 md:mt-20 border border-white/5 rounded-2xl overflow-hidden"
           style={{ background: "rgba(255,255,255,0.03)" }}
         >
           {stats.map((s) => (
@@ -210,7 +210,7 @@ export default function Hero() {
               className="flex flex-col items-center justify-center py-8 px-4 text-center"
               style={{ background: "rgba(0,0,0,0.4)" }}
             >
-              <div className="font-mono text-4xl font-bold text-[var(--accent)]">
+              <div className="font-mono text-2xl md:text-4xl font-bold text-[var(--accent)]">
                 {s.prefix ?? ""}
                 <span data-count={s.value} data-dec={s.decimals}>0</span>
                 {s.suffix}

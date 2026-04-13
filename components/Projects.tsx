@@ -2,11 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { projects } from "@/lib/data";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
